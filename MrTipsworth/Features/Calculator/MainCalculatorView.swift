@@ -45,7 +45,7 @@ struct MainCalculatorView: View {
 
                 // Dial anchored to bottom
                 TipDialView(tipPercent: $calculation.tipPercent)
-                    .padding(.bottom, 52)
+                    .padding(.bottom, 24)
             }
         }
         .task {

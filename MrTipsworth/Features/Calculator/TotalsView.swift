@@ -40,6 +40,7 @@ private struct TotalChip: View {
                 .font(.system(size: isEmphasized ? 36 : 28, weight: .black, design: .rounded))
                 .foregroundStyle(isEmphasized ? theme.accent : theme.primaryText)
                 .contentTransition(.numericText())
+                .animation(.snappy(duration: 0.2), value: value)
                 .minimumScaleFactor(0.6)
                 .lineLimit(1)
         }

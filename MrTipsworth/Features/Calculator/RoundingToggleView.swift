@@ -9,7 +9,7 @@ struct RoundingToggleView: View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
                 Text("Round up total")
-                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .font(.system(size: 16, weight: .semibold, design: .rounded))
                     .foregroundStyle(themeStore.activeTheme.primaryText)
 
                 if let effectiveTip {
@@ -26,7 +26,7 @@ struct RoundingToggleView: View {
                 .labelsHidden()
                 .tint(themeStore.activeTheme.accent)
         }
-        .padding(.horizontal, 24)
+        .padding(.horizontal, 20)
         .padding(.vertical, 16)
         .background(themeStore.activeTheme.cardBackground, in: .rect(cornerRadius: 20))
         .animation(.easeInOut(duration: 0.2), value: isRounding)
