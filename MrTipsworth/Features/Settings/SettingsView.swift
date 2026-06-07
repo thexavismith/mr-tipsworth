@@ -84,8 +84,12 @@ struct SettingsView: View {
                         let encoded = "mailto:\(address)?subject=\(encodedSubject)"
                         if let url = URL(string: encoded) { UIApplication.shared.open(url) }
                     } label: {
-                        settingsRowLabel("Send Feedback", icon: "envelope",
-                                         iconColor: theme.secondaryText, theme: theme)
+                        settingsRowLabel(
+                            "Send Feedback",
+                            icon: "envelope",
+                            iconColor: theme.secondaryText,
+                            theme: theme
+                        )
                     }
                     .buttonStyle(.plain)
                 }
