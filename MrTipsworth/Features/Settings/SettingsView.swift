@@ -2,38 +2,35 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(ThemeStore.self) private var themeStore
-    @Environment(IAPStore.self) private var store
-    @State private var isShowingDonations = false
+@State private var isShowingDonations = false
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                themeStore.activeTheme.background
-                    .ignoresSafeArea()
-
-                ScrollView {
-                    VStack(spacing: 12) {
-                        themeSection
-                        iconSection
-                        supportSection
+            ScrollView {
+                VStack(spacing: 12) {
+                    HStack {
+                        Text("Settings")
+                            .font(.system(size: 34, weight: .bold, design: .rounded))
+                            .foregroundStyle(themeStore.activeTheme.primaryText)
+                        Spacer()
+                        Button("Done") { dismiss() }
+                            .font(.system(size: 16, weight: .semibold, design: .rounded))
+                            .foregroundStyle(themeStore.activeTheme.accent)
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 8)
-                    .padding(.bottom, 32)
+                    .padding(.top, 24)
+                    .padding(.bottom, 12)
+
+                    themeSection
+                    iconSection
+                    supportSection
+                    versionSection
                 }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 32)
             }
-            .navigationTitle("Settings")
-            .navigationBarTitleDisplayMode(.large)
-            .toolbarBackground(themeStore.activeTheme.background, for: .navigationBar)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") { dismiss() }
-                        .font(.system(size: 16, weight: .semibold, design: .rounded))
-                        .foregroundStyle(themeStore.activeTheme.accent)
-                }
-            }
+            .background(themeStore.activeTheme.background.ignoresSafeArea())
+            .navigationBarHidden(true)
         }
         .sheet(isPresented: $isShowingDonations) {
             DonationSheetView()
@@ -42,21 +39,20 @@ struct SettingsView: View {
 
     private var themeSection: some View {
         SettingsCard(title: "Appearance", theme: themeStore.activeTheme) {
-            @Bindable var themeStore = themeStore
-            Picker("Theme", selection: $themeStore.activeTheme) {
-                ForEach(AppTheme.allCases) { theme in
-                    HStack {
-                        Text(theme.displayName)
-                        if !themeStore.unlockedThemes.contains(theme) {
-                            Image(systemName: "lock.fill")
-                                .foregroundStyle(themeStore.activeTheme.secondaryText)
-                        }
+            VStack(spacing: 0) {
+                ForEach(Array(AppTheme.allCases.enumerated()), id: \.element) { index, theme in
+                    if index > 0 {
+                        Divider().overlay(themeStore.activeTheme.cardStroke).padding(.leading, 20)
                     }
-                    .tag(theme)
+                    ThemePickerRow(
+                        theme: theme,
+                        isActive: themeStore.activeTheme == theme,
+                        activeTheme: themeStore.activeTheme
+                    ) {
+                        themeStore.activeTheme = theme
+                    }
                 }
             }
-            .pickerStyle(.menu)
-            .tint(themeStore.activeTheme.accent)
         }
     }
 
@@ -67,42 +63,112 @@ struct SettingsView: View {
     }
 
     private var supportSection: some View {
-        SettingsCard(title: "Support", theme: themeStore.activeTheme) {
+        let theme = themeStore.activeTheme
+        return SettingsCard(title: "Support", theme: theme) {
             VStack(spacing: 0) {
-                SettingsRow(theme: themeStore.activeTheme) {
-                    Button {
-                        isShowingDonations = true
-                    } label: {
-                        HStack {
-                            Text("Support the Dev")
-                                .font(.system(size: 16, weight: .semibold, design: .rounded))
-                                .foregroundStyle(themeStore.activeTheme.primaryText)
-                            Spacer()
-                            Image(systemName: "heart.fill")
-                                .foregroundStyle(themeStore.activeTheme.accent)
-                        }
+                SettingsRow(theme: theme) {
+                    Button { isShowingDonations = true } label: {
+                        settingsRowLabel("Support the Dev", icon: "heart.fill", iconColor: theme.accent, theme: theme)
                     }
+                    .buttonStyle(.plain)
                 }
 
-                Divider()
-                    .padding(.leading, 16)
+                Divider().overlay(theme.cardStroke).padding(.leading, 20)
 
-                SettingsRow(theme: themeStore.activeTheme) {
+                SettingsRow(theme: theme) {
                     Button {
-                        Task { await store.restorePurchases() }
+                        let address = "xavi@xavibenjamin.com"
+                        let subject = "Mr. Tipsworth Feedback"
+                        let allowed = CharacterSet.urlQueryAllowed
+                        let encodedSubject = subject.addingPercentEncoding(withAllowedCharacters: allowed) ?? subject
+                        let encoded = "mailto:\(address)?subject=\(encodedSubject)"
+                        if let url = URL(string: encoded) { UIApplication.shared.open(url) }
                     } label: {
-                        HStack {
-                            Text("Restore Purchases")
-                                .font(.system(size: 16, weight: .semibold, design: .rounded))
-                                .foregroundStyle(themeStore.activeTheme.primaryText)
-                            Spacer()
-                            Image(systemName: "arrow.clockwise")
-                                .foregroundStyle(themeStore.activeTheme.secondaryText)
-                        }
+                        settingsRowLabel("Send Feedback", icon: "envelope",
+                                         iconColor: theme.secondaryText, theme: theme)
                     }
+                    .buttonStyle(.plain)
+                }
+
+            }
+        }
+    }
+
+    private func settingsRowLabel(_ title: String, icon: String, iconColor: Color, theme: AppTheme) -> some View {
+        HStack {
+            Text(title)
+                .font(.system(size: 16, weight: .semibold, design: .rounded))
+                .foregroundStyle(theme.primaryText)
+            Spacer()
+            Image(systemName: icon)
+                .foregroundStyle(iconColor)
+        }
+        .contentShape(Rectangle())
+    }
+
+    private var versionSection: some View {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "—"
+        return SettingsCard(title: "About", theme: themeStore.activeTheme) {
+            SettingsRow(theme: themeStore.activeTheme) {
+                HStack {
+                    Text("Version")
+                        .font(.system(size: 16, weight: .semibold, design: .rounded))
+                        .foregroundStyle(themeStore.activeTheme.primaryText)
+                    Spacer()
+                    Text("\(version) (\(build))")
+                        .font(.system(size: 15, design: .rounded))
+                        .foregroundStyle(themeStore.activeTheme.secondaryText)
                 }
             }
         }
+    }
+}
+
+// MARK: - Theme picker row
+
+private struct ThemePickerRow: View {
+    let theme: AppTheme
+    let isActive: Bool
+    let activeTheme: AppTheme
+    let onTap: () -> Void
+
+    var body: some View {
+        Button(action: onTap) {
+            HStack(spacing: 14) {
+                themeSwatches
+                Text(theme.displayName)
+                    .font(.system(size: 16, weight: .semibold, design: .rounded))
+                    .foregroundStyle(activeTheme.primaryText)
+                Spacer()
+                if isActive {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(activeTheme.accent)
+                        .accessibilityLabel("Selected")
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 16)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var themeSwatches: some View {
+        HStack(spacing: -6) {
+            ForEach([theme.accentFill, theme.cardBackground, theme.background], id: \.self) { color in
+                Circle()
+                    .fill(color)
+                    .frame(width: 22, height: 22)
+                    .overlay {
+                        Circle().strokeBorder(Color.black.opacity(0.35), lineWidth: 1)
+                    }
+                    .overlay {
+                        Circle().strokeBorder(.white, lineWidth: 2)
+                    }
+            }
+        }
+        .accessibilityHidden(true)
     }
 }
 

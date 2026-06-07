@@ -4,18 +4,12 @@ import SwiftUI
 @Observable
 final class ThemeStore {
     var activeTheme: AppTheme = .classic
-    var unlockedThemes: Set<AppTheme> = [.classic]
-
     var activeIcon: AppIcon = .default
-    var unlockedIcons: Set<AppIcon> = [.default]
 
-    func unlock(_ theme: AppTheme) {
-        unlockedThemes.insert(theme)
-    }
+    let unlockedThemes: Set<AppTheme> = Set(AppTheme.allCases)
+    let unlockedIcons: Set<AppIcon> = Set(AppIcon.allCases)
 
-    func unlock(icon: AppIcon) {
-        unlockedIcons.insert(icon)
-    }
+    func syncPurchases(from store: IAPStore) {}
 
     func setIcon(_ icon: AppIcon) async {
         guard unlockedIcons.contains(icon) else { return }
