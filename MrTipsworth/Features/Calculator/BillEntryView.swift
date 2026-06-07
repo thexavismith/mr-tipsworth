@@ -3,10 +3,10 @@ import SwiftUI
 struct BillEntryView: View {
     @Bindable var calculation: TipCalculation
     @Environment(ThemeStore.self) private var themeStore
+    var isActive: Bool = false
     var onAccent: Bool = false
-
-    @State private var rawText: String = ""
-    @FocusState private var isFocused: Bool
+    var onTap: (() -> Void)?
+    var onClear: (() -> Void)?
 
     private var labelColor: Color {
         onAccent ? themeStore.activeTheme.accentText.opacity(0.7) : themeStore.activeTheme.accent
@@ -20,10 +20,14 @@ struct BillEntryView: View {
     private var clearColor: Color {
         onAccent ? themeStore.activeTheme.accentText.opacity(0.5) : themeStore.activeTheme.secondaryText
     }
-    private var bgColor: Color { onAccent ? .clear : themeStore.activeTheme.cardBackground }
     private var strokeColor: Color {
-        if onAccent { return isFocused ? themeStore.activeTheme.accentText : .clear }
-        return isFocused ? themeStore.activeTheme.accent : themeStore.activeTheme.cardStroke
+        if onAccent { return isActive ? themeStore.activeTheme.accentText : .clear }
+        return isActive ? themeStore.activeTheme.accent : themeStore.activeTheme.cardStroke
+    }
+
+    private var displayText: String {
+        guard let bill = calculation.billAmount else { return "" }
+        return formatted(bill)
     }
 
     var body: some View {
@@ -38,27 +42,21 @@ struct BillEntryView: View {
                 HStack(alignment: .firstTextBaseline, spacing: 2) {
                     Text(currencySymbol)
                         .font(.system(size: 28, weight: .heavy, design: .rounded))
-                        .foregroundStyle(rawText.isEmpty ? symbolColor : amountColor)
+                        .foregroundStyle(displayText.isEmpty ? symbolColor : amountColor)
 
-                    TextField("0.00", text: $rawText)
-                        .keyboardType(.decimalPad)
+                    Text(displayText.isEmpty ? "0.00" : displayText)
                         .font(.system(size: 44, weight: .heavy, design: .rounded))
-                        .foregroundStyle(amountColor)
-                        .tint(onAccent ? themeStore.activeTheme.accentText : themeStore.activeTheme.accent)
-                        .focused($isFocused)
-                        .onChange(of: rawText) { _, new in
-                            rawText = sanitized(new)
-                            calculation.billAmount = Double(rawText)
-                        }
+                        .foregroundStyle(displayText.isEmpty ? symbolColor : amountColor)
+                        .contentTransition(.numericText())
+                        .animation(.snappy(duration: 0.15), value: displayText)
                 }
             }
 
             Spacer()
 
-            if !rawText.isEmpty {
+            if calculation.billAmount != nil {
                 Button {
-                    rawText = ""
-                    calculation.billAmount = nil
+                    onClear?()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
                         .font(.system(size: 22))
@@ -69,25 +67,25 @@ struct BillEntryView: View {
         }
         .padding(.horizontal, onAccent ? 0 : 20)
         .padding(.vertical, onAccent ? 0 : 18)
-        .background(onAccent ? .clear : bgColor, in: .rect(cornerRadius: 20))
+        .background(onAccent ? .clear : themeStore.activeTheme.cardBackground, in: .rect(cornerRadius: 20))
         .overlay {
             if !onAccent {
                 RoundedRectangle(cornerRadius: 20)
-                    .strokeBorder(strokeColor, lineWidth: isFocused ? 2 : 1.5)
+                    .strokeBorder(strokeColor, lineWidth: isActive ? 2 : 1.5)
             }
         }
-        .animation(.easeInOut(duration: 0.15), value: isFocused)
-        .onTapGesture { isFocused = true }
+        .animation(.easeInOut(duration: 0.15), value: isActive)
+        .contentShape(Rectangle())
+        .onTapGesture { onTap?() }
     }
 
     private var currencySymbol: String { Locale.current.currencySymbol ?? "$" }
 
-    private func sanitized(_ input: String) -> String {
-        let sep = Locale.current.decimalSeparator ?? "."
-        var result = input.filter { $0.isNumber || String($0) == sep }
-        let parts = result.components(separatedBy: sep)
-        if parts.count > 2 { result = parts[0] + sep + parts[1...].joined() }
-        return result
+    private func formatted(_ value: Double) -> String {
+        let str = String(format: "%.2f", value)
+        if str.hasSuffix(".00") { return String(str.dropLast(3)) }
+        if str.hasSuffix("0") { return String(str.dropLast()) }
+        return str
     }
 }
 

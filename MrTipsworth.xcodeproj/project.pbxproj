@@ -23,6 +23,7 @@
 		89A7B6B4BC7675D3EFEAA878 /* MainCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A66E2029202D8A8911C778B /* MainCalculatorView.swift */; };
 		A67F81036CB91655E49B6C2E /* RewardUnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259EA543C5E70BADFC28084D /* RewardUnlockView.swift */; };
 		BD6AC4697253E5FF48A6E400 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FB6EFD21AFB7B1608C2FC7A /* Assets.xcassets */; };
+		C161990861C1F8A1643F6A2E /* NumpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9E141BFBECCC2834F8224F /* NumpadView.swift */; };
 		D07CA3C0202A01F7CF326E5A /* ThemeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850CCE3FEEFFDF70B43037B9 /* ThemeStore.swift */; };
 		D9A4D567388F679DB519A850 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524EC2C53AE858831E4411B /* AppTheme.swift */; };
 		DC387847403E0BB36BE67616 /* IAPProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5EBE0D0DDB17B3A86654E /* IAPProduct.swift */; };
@@ -51,13 +52,14 @@
 		27B7E79A3E8CF23BB201070F /* MrTipsworthApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrTipsworthApp.swift; sourceTree = "<group>"; };
 		32F267B1B8461FCA94DA6792 /* BillEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillEntryView.swift; sourceTree = "<group>"; };
 		35182671514B2412FB95EF07 /* DonationSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationSheetView.swift; sourceTree = "<group>"; };
+		3C9E141BFBECCC2834F8224F /* NumpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadView.swift; sourceTree = "<group>"; };
 		4F4ED8E1081EEE9F3B32896A /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		5A66E2029202D8A8911C778B /* MainCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCalculatorView.swift; sourceTree = "<group>"; };
 		5C38D7E60D81BAFA019A39B8 /* CelebrationParticleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CelebrationParticleView.swift; sourceTree = "<group>"; };
 		62A7DE720A99955BB20EB330 /* IAPStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPStore.swift; sourceTree = "<group>"; };
 		68E08A058EC08A5BDFC317B3 /* TipCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCalculation.swift; sourceTree = "<group>"; };
 		7B144B4A2F651FED814D2AC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		81E6B2ABC0B1ED1594D58046 /* MrTipsworth.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MrTipsworth.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		81E6B2ABC0B1ED1594D58046 /* MrTipsworth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MrTipsworth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		850CCE3FEEFFDF70B43037B9 /* ThemeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeStore.swift; sourceTree = "<group>"; };
 		8CDD5C71E0352F360B3394B8 /* MrTipsworthTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MrTipsworthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		90B1DD6D49E1A32C55A981BC /* RoundingToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundingToggleView.swift; sourceTree = "<group>"; };
@@ -65,7 +67,7 @@
 		C5A0D0DBCA37C56486E0CC34 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		D0C5EBE0D0DDB17B3A86654E /* IAPProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPProduct.swift; sourceTree = "<group>"; };
 		E524EC2C53AE858831E4411B /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
-		F2CDA961C8B4AD68D6494E42 /* MrTipsworth.storekit */ = {isa = PBXFileReference; path = MrTipsworth.storekit; sourceTree = "<group>"; };
+		F2CDA961C8B4AD68D6494E42 /* MrTipsworth.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = MrTipsworth.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -173,6 +175,7 @@
 			children = (
 				32F267B1B8461FCA94DA6792 /* BillEntryView.swift */,
 				5A66E2029202D8A8911C778B /* MainCalculatorView.swift */,
+				3C9E141BFBECCC2834F8224F /* NumpadView.swift */,
 				90B1DD6D49E1A32C55A981BC /* RoundingToggleView.swift */,
 				24BC453EF9EB925BDA031FAC /* TipDialView.swift */,
 				0CCA820222C0820402DAF9C2 /* TotalsView.swift */,
@@ -227,8 +230,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 09DFDDA90B5DCD6A25283B94 /* Build configuration list for PBXProject "MrTipsworth" */;
 			developmentRegion = en;
@@ -277,6 +278,7 @@
 				F54AF8FF9D7E6F390D653F1E /* IconPickerSectionView.swift in Sources */,
 				89A7B6B4BC7675D3EFEAA878 /* MainCalculatorView.swift in Sources */,
 				51318A3B7BC5F1B6B60C804D /* MrTipsworthApp.swift in Sources */,
+				C161990861C1F8A1643F6A2E /* NumpadView.swift in Sources */,
 				458B446F649A7E36684862B2 /* Palette.swift in Sources */,
 				A67F81036CB91655E49B6C2E /* RewardUnlockView.swift in Sources */,
 				703E3DC1294A332CD412EAEE /* RoundingToggleView.swift in Sources */,
@@ -314,6 +316,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MrTipsworth/MrTipsworth.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = T8UYFT2CWK;
 				INFOPLIST_FILE = MrTipsworth/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -419,6 +422,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MrTipsworth/MrTipsworth.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = T8UYFT2CWK;
 				INFOPLIST_FILE = MrTipsworth/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (

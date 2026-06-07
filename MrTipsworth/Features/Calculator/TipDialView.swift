@@ -58,6 +58,9 @@ struct TipDialView: View {
             @unknown default: break
             }
         }
+        .onAppear {
+            rotation = Double(tipPercent - Self.range.lowerBound) * degreesPerPercent
+        }
         .onChange(of: tipPercent) { old, new in
             lastTipPercent = old
             isOnSnapPoint = Self.snapPoints.contains(new)
@@ -291,7 +294,7 @@ private struct SnapLabelView: View {
 
     private var orbitAngle: Double {
         let span = Double(range.upperBound - range.lowerBound)
-        return (Double(percent - range.lowerBound) / span) * 360
+        return (Double(percent - range.lowerBound) / span) * 360 - 90
     }
 }
 

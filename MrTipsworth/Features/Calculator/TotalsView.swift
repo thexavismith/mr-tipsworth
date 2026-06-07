@@ -8,7 +8,7 @@ struct TotalsView: View {
         HStack(spacing: 10) {
             TotalChip(
                 label: "Tip",
-                value: calculation.tipAmount,
+                value: calculation.displayTipAmount,
                 isEmphasized: false,
                 theme: themeStore.activeTheme
             )

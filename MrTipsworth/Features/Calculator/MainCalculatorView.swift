@@ -5,17 +5,17 @@ struct MainCalculatorView: View {
     @Environment(IAPStore.self) private var store
     @State private var calculation = TipCalculation()
     @State private var isShowingSettings = false
+    @State private var isEnteringBill = false
 
     var body: some View {
         ZStack(alignment: .top) {
             themeStore.activeTheme.background
                 .ignoresSafeArea()
 
-            // Fills status bar area with accent colour — sits behind everything
             themeStore.activeTheme.accentFill
                 .ignoresSafeArea()
                 .frame(maxHeight: .infinity, alignment: .top)
-                .frame(height: 1) // minimal height; ignoresSafeArea expands it upward only
+                .frame(height: 1)
 
             VStack(spacing: 0) {
                 header
@@ -31,8 +31,19 @@ struct MainCalculatorView: View {
 
                 Spacer(minLength: 16)
 
-                TipDialView(tipPercent: $calculation.tipPercent)
+                if isEnteringBill {
+                    NumpadView(calculation: calculation, onDone: {
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+                            isEnteringBill = false
+                        }
+                    })
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
                     .padding(.bottom, 20)
+                } else {
+                    TipDialView(tipPercent: $calculation.tipPercent)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                        .padding(.bottom, 20)
+                }
             }
         }
         .task { await store.updatePurchasedProducts() }
@@ -69,9 +80,24 @@ struct MainCalculatorView: View {
                 }
                 .padding(.bottom, 28)
 
-                BillEntryView(calculation: calculation, onAccent: true)
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 36)
+                BillEntryView(
+                    calculation: calculation,
+                    isActive: isEnteringBill,
+                    onAccent: true,
+                    onTap: {
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+                            isEnteringBill = true
+                        }
+                    },
+                    onClear: {
+                        calculation.billAmount = nil
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+                            isEnteringBill = false
+                        }
+                    }
+                )
+                .padding(.horizontal, 20)
+                .padding(.bottom, 36)
             }
         }
         .frame(height: 210)
