@@ -27,53 +27,76 @@ enum AppTheme: String, CaseIterable, Identifiable {
         }
     }
 
+    // Interactive accent — used on buttons, toggles, borders, gear icon
     var accent: Color {
         switch self {
-        case .classic:      .plum
+        case .classic:      .lavenderText
         case .warmMushroom: .cozyPeach
+        }
+    }
+
+    // Header/dial face fill
+    var accentFill: Color {
+        switch self {
+        case .classic:      .lavender
+        case .warmMushroom: .cozyPeach
+        }
+    }
+
+    // Text that sits on top of the accentFill surface
+    var accentText: Color {
+        switch self {
+        case .classic:      .lavenderText
+        case .warmMushroom: .richBrown
+        }
+    }
+
+    var cardBackground: Color {
+        switch self {
+        case .classic:      .lavenderCard
+        case .warmMushroom: Color(hex: 0xFFF1DC)
+        }
+    }
+
+    var cardStroke: Color {
+        switch self {
+        case .classic:      .lavenderStroke
+        case .warmMushroom: .cozyPeach.opacity(0.3)
         }
     }
 
     var dialFace: Color {
         switch self {
-        case .classic:      .plum
+        case .classic:      .lavender
         case .warmMushroom: .cozyPeach
         }
     }
 
     var dialPip: Color {
         switch self {
-        case .classic:      .lightPlum
-        case .warmMushroom: .richBrown
+        case .classic:      .lavenderText
+        case .warmMushroom: .white
         }
     }
 
     var primaryText: Color {
         switch self {
-        case .classic:      .inkBrown
+        case .classic:      .purpleGrey
         case .warmMushroom: .richBrown
         }
     }
 
     var secondaryText: Color {
         switch self {
-        case .classic:      .inkBrown.opacity(0.45)
+        case .classic:      .purpleGrey.opacity(0.5)
         case .warmMushroom: .richBrown.opacity(0.5)
         }
     }
 
     var highlight: Color {
         switch self {
-        case .classic:      .deepTeal
+        case .classic:      .amberGold
         case .warmMushroom: .warmYellow
-        }
-    }
-
-    // Card chip backgrounds (bill entry, totals, rounding)
-    var cardBackground: Color {
-        switch self {
-        case .classic:      .lightPlum
-        case .warmMushroom: Color(hex: 0xFFF1DC)
         }
     }
 }

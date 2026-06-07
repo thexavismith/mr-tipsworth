@@ -5,7 +5,7 @@ struct TotalsView: View {
     @Environment(ThemeStore.self) private var themeStore
 
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 10) {
             TotalChip(
                 label: "Tip",
                 value: calculation.tipAmount,
@@ -29,32 +29,32 @@ private struct TotalChip: View {
     let theme: AppTheme
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 6) {
             Text(label)
-                .font(.system(size: 13, weight: .semibold, design: .rounded))
-                .foregroundStyle(theme.secondaryText)
+                .font(.system(size: 11, weight: .semibold, design: .rounded))
+                .foregroundStyle(isEmphasized ? theme.accentText.opacity(0.7) : theme.secondaryText)
                 .textCase(.uppercase)
                 .kerning(0.8)
 
             Text(value, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                .font(.system(size: isEmphasized ? 36 : 28, weight: .black, design: .rounded))
-                .foregroundStyle(isEmphasized ? theme.accent : theme.primaryText)
+                .font(.system(size: isEmphasized ? 34 : 28, weight: .heavy, design: .rounded))
+                .foregroundStyle(isEmphasized ? theme.accentText : theme.primaryText)
                 .contentTransition(.numericText())
                 .animation(.snappy(duration: 0.2), value: value)
                 .minimumScaleFactor(0.6)
                 .lineLimit(1)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 20)
+        .padding(.horizontal, 18)
         .padding(.vertical, 18)
         .background(
-            isEmphasized ? theme.accent.opacity(0.12) : theme.cardBackground,
+            isEmphasized ? theme.accentFill : theme.cardBackground,
             in: .rect(cornerRadius: 20)
         )
         .overlay {
-            if isEmphasized {
+            if !isEmphasized {
                 RoundedRectangle(cornerRadius: 20)
-                    .strokeBorder(theme.accent.opacity(0.35), lineWidth: 1.5)
+                    .strokeBorder(theme.cardStroke, lineWidth: 1.5)
             }
         }
     }

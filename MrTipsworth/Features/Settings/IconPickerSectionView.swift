@@ -41,7 +41,7 @@ private struct IconPickerRow: View {
                         .accessibilityLabel("Locked")
                 } else if isActive {
                     Image(systemName: "checkmark.circle.fill")
-                        .foregroundStyle(Color.plum)
+                        .foregroundStyle(Color.lavender)
                         .accessibilityLabel("Selected")
                 }
             }
@@ -53,11 +53,11 @@ private struct IconPickerRow: View {
 
     private var iconPreview: some View {
         RoundedRectangle(cornerRadius: 10)
-            .fill(isUnlocked ? Color.plum.opacity(0.15) : Color.secondary.opacity(0.1))
+            .fill(isUnlocked ? Color.lavender.opacity(0.15) : Color.secondary.opacity(0.1))
             .frame(width: 44, height: 44)
             .overlay {
                 Image(systemName: isUnlocked ? "app.fill" : "app")
-                    .foregroundStyle(isUnlocked ? Color.plum : .secondary)
+                    .foregroundStyle(isUnlocked ? Color.lavender : .secondary)
             }
             .accessibilityHidden(true)
     }
