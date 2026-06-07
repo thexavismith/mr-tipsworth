@@ -11,6 +11,7 @@
 		129C9969C30D9B3318EB720B /* TipCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E08A058EC08A5BDFC317B3 /* TipCalculation.swift */; };
 		13517DB849537BBF2B86241C /* TipDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BC453EF9EB925BDA031FAC /* TipDialView.swift */; };
 		1A42C2FD65B5CEB831AD341C /* IAPStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A7DE720A99955BB20EB330 /* IAPStore.swift */; };
+		2B24D5E79AD48803974BE7E8 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D0DBCA37C56486E0CC34 /* AppIcon.swift */; };
 		404D67B72421685A7AA534D8 /* BillEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F267B1B8461FCA94DA6792 /* BillEntryView.swift */; };
 		458B446F649A7E36684862B2 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4ED8E1081EEE9F3B32896A /* Palette.swift */; };
 		51318A3B7BC5F1B6B60C804D /* MrTipsworthApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7E79A3E8CF23BB201070F /* MrTipsworthApp.swift */; };
@@ -25,6 +26,7 @@
 		D9A4D567388F679DB519A850 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524EC2C53AE858831E4411B /* AppTheme.swift */; };
 		DC387847403E0BB36BE67616 /* IAPProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5EBE0D0DDB17B3A86654E /* IAPProduct.swift */; };
 		DF13EC5223BC60C6C487B8CE /* DonationSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35182671514B2412FB95EF07 /* DonationSheetView.swift */; };
+		F54AF8FF9D7E6F390D653F1E /* IconPickerSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3BCE06F4086043A2076BC9 /* IconPickerSectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		03BFF064F7712CEFDF51926A /* TipCalculationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCalculationTests.swift; sourceTree = "<group>"; };
+		0B3BCE06F4086043A2076BC9 /* IconPickerSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPickerSectionView.swift; sourceTree = "<group>"; };
 		0CCA820222C0820402DAF9C2 /* TotalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalsView.swift; sourceTree = "<group>"; };
 		0FB6EFD21AFB7B1608C2FC7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1495B600F9954DDEFA0B5EB1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -57,6 +60,7 @@
 		8CDD5C71E0352F360B3394B8 /* MrTipsworthTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MrTipsworthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		90B1DD6D49E1A32C55A981BC /* RoundingToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundingToggleView.swift; sourceTree = "<group>"; };
 		98BA2142BAC9BCEC3785DD46 /* MrTipsworth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MrTipsworth.entitlements; sourceTree = "<group>"; };
+		C5A0D0DBCA37C56486E0CC34 /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		D0C5EBE0D0DDB17B3A86654E /* IAPProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPProduct.swift; sourceTree = "<group>"; };
 		E524EC2C53AE858831E4411B /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		F2CDA961C8B4AD68D6494E42 /* MrTipsworth.storekit */ = {isa = PBXFileReference; path = MrTipsworth.storekit; sourceTree = "<group>"; };
@@ -84,6 +88,7 @@
 		4EA2A92CA9F829B957661A4B /* Theme */ = {
 			isa = PBXGroup;
 			children = (
+				C5A0D0DBCA37C56486E0CC34 /* AppIcon.swift */,
 				E524EC2C53AE858831E4411B /* AppTheme.swift */,
 				4F4ED8E1081EEE9F3B32896A /* Palette.swift */,
 				850CCE3FEEFFDF70B43037B9 /* ThemeStore.swift */,
@@ -94,6 +99,7 @@
 		6B72EBA0DE87D4693795CAFB /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				0B3BCE06F4086043A2076BC9 /* IconPickerSectionView.swift */,
 				1495B600F9954DDEFA0B5EB1 /* SettingsView.swift */,
 			);
 			path = Settings;
@@ -258,11 +264,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B24D5E79AD48803974BE7E8 /* AppIcon.swift in Sources */,
 				D9A4D567388F679DB519A850 /* AppTheme.swift in Sources */,
 				404D67B72421685A7AA534D8 /* BillEntryView.swift in Sources */,
 				DF13EC5223BC60C6C487B8CE /* DonationSheetView.swift in Sources */,
 				DC387847403E0BB36BE67616 /* IAPProduct.swift in Sources */,
 				1A42C2FD65B5CEB831AD341C /* IAPStore.swift in Sources */,
+				F54AF8FF9D7E6F390D653F1E /* IconPickerSectionView.swift in Sources */,
 				89A7B6B4BC7675D3EFEAA878 /* MainCalculatorView.swift in Sources */,
 				51318A3B7BC5F1B6B60C804D /* MrTipsworthApp.swift in Sources */,
 				458B446F649A7E36684862B2 /* Palette.swift in Sources */,
