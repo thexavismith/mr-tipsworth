@@ -12,6 +12,7 @@
 		13517DB849537BBF2B86241C /* TipDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BC453EF9EB925BDA031FAC /* TipDialView.swift */; };
 		1A42C2FD65B5CEB831AD341C /* IAPStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A7DE720A99955BB20EB330 /* IAPStore.swift */; };
 		2B24D5E79AD48803974BE7E8 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A0D0DBCA37C56486E0CC34 /* AppIcon.swift */; };
+		3679BDAE990593E5864BBA4D /* CelebrationParticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C38D7E60D81BAFA019A39B8 /* CelebrationParticleView.swift */; };
 		404D67B72421685A7AA534D8 /* BillEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F267B1B8461FCA94DA6792 /* BillEntryView.swift */; };
 		458B446F649A7E36684862B2 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4ED8E1081EEE9F3B32896A /* Palette.swift */; };
 		51318A3B7BC5F1B6B60C804D /* MrTipsworthApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7E79A3E8CF23BB201070F /* MrTipsworthApp.swift */; };
@@ -52,6 +53,7 @@
 		35182671514B2412FB95EF07 /* DonationSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationSheetView.swift; sourceTree = "<group>"; };
 		4F4ED8E1081EEE9F3B32896A /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		5A66E2029202D8A8911C778B /* MainCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCalculatorView.swift; sourceTree = "<group>"; };
+		5C38D7E60D81BAFA019A39B8 /* CelebrationParticleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CelebrationParticleView.swift; sourceTree = "<group>"; };
 		62A7DE720A99955BB20EB330 /* IAPStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPStore.swift; sourceTree = "<group>"; };
 		68E08A058EC08A5BDFC317B3 /* TipCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCalculation.swift; sourceTree = "<group>"; };
 		7B144B4A2F651FED814D2AC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 		C53304D3CCC31D294A7F368A /* Donations */ = {
 			isa = PBXGroup;
 			children = (
+				5C38D7E60D81BAFA019A39B8 /* CelebrationParticleView.swift */,
 				35182671514B2412FB95EF07 /* DonationSheetView.swift */,
 				259EA543C5E70BADFC28084D /* RewardUnlockView.swift */,
 			);
@@ -267,6 +270,7 @@
 				2B24D5E79AD48803974BE7E8 /* AppIcon.swift in Sources */,
 				D9A4D567388F679DB519A850 /* AppTheme.swift in Sources */,
 				404D67B72421685A7AA534D8 /* BillEntryView.swift in Sources */,
+				3679BDAE990593E5864BBA4D /* CelebrationParticleView.swift in Sources */,
 				DF13EC5223BC60C6C487B8CE /* DonationSheetView.swift in Sources */,
 				DC387847403E0BB36BE67616 /* IAPProduct.swift in Sources */,
 				1A42C2FD65B5CEB831AD341C /* IAPStore.swift in Sources */,
