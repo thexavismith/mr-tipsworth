@@ -1,10 +1,10 @@
 ---
 name: Mr. Tipsworth
-description: Soft, airy tip calculator with a lavender accent palette, warm cream surfaces, pill-shaped cards, and gentle rounded typography.
+description: Soft, airy tip calculator with a lavender background, white card surfaces, lavender accent palette, pill-shaped interactive elements, and gentle rounded typography.
 colors:
-  background: "#FAF6EF"
+  background: "#EDE5FF"
   surface: "#FFFFFF"
-  card: "#F5F0FF"
+  card: "#FFFFFF"
   card-stroke: "#E0D4F7"
   primary: "#8B6BBE"
   primary-light: "#EDE5FF"
@@ -125,8 +125,8 @@ The iPod-style dial is the centrepiece of the UI. It sits at the bottom of the s
 
 The palette is anchored by **lavender** (`#8B6BBE`) — softer and more approachable than the previous deep plum. It reads as warm rather than corporate, and pairs naturally with the cream background.
 
-- **Background:** Warm Cream `#FAF6EF` — unchanged; always warm parchment, never pure white or grey.
-- **Card:** Soft Lavender Tint `#F5F0FF` — a very light purple wash that ties cards to the accent without competing.
+- **Background:** Lavender Light `#EDE5FF` — a soft, airy lavender that sets the atmospheric tone of the app.
+- **Card:** White `#FFFFFF` — pure white cards sit on the lavender background, creating clean contrast without competing with the accent.
 - **Card stroke:** `#E0D4F7` — a 1.5pt border on every card. Cards are defined by both fill and a gentle outline, giving them more presence on the cream background than fill alone.
 - **Primary text:** Deep Purple-Grey `#2A2035` — replaces ink brown; cooler and more harmonious with the lavender palette while remaining warm.
 - **Highlight:** Amber Gold `#F5C842` — used sparingly on the reward screen and decorative moments. Warm contrast to the cool lavender.
@@ -176,7 +176,13 @@ Two side-by-side chips. **Tip** chip: card fill + stroke. **Total** chip: primar
 - Clockwise drag = higher tip. Accumulator-based sensitivity. Flick momentum with 0.88 friction. Spring overshoot on snap (`dampingFraction: 0.55`).
 
 ### Settings
-Custom scroll view on theme background. Section titles use uppercase caption label style. Row cards use the `settings-card` component with stroke border. Lavender tint on Done button, picker tint, and selected-icon checkmark.
+Custom scroll view on the lavender background with a custom inline "Settings" heading (large bold rounded type) and Done button on the same row. Section titles use uppercase caption label style. Row cards are white with a `card-stroke` border. All rows use `.buttonStyle(.plain)` + `.contentShape(Rectangle())` to preserve full-width tap targets without inheriting the system blue tint.
+
+Sections:
+- **Appearance** — theme picker rows with three stacked colour swatches (accent, card, background) and a checkmark on the active theme. All themes are available to all users.
+- **App Icon** — icon picker rows with a tinted rounded-rectangle preview and checkmark. All icons are available to all users.
+- **Support** — "Support the Dev" (opens donation sheet), "Send Feedback" (mailto: xavi@xavibenjamin.com).
+- **About** — app version and build number.
 
 ## Micro-interactions
 
