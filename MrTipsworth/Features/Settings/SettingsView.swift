@@ -45,9 +45,7 @@ struct SettingsView: View {
     }
 
     private var iconSection: some View {
-        Section("App Icon") {
-            Text("Default")
-        }
+        IconPickerSectionView()
     }
 
     private var supportSection: some View {

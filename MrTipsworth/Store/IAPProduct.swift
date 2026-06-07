@@ -31,10 +31,10 @@ enum IAPProduct: String, CaseIterable, Identifiable {
         }
     }
 
-    var unlocksIcon: String? {
+    var unlocksIcon: AppIcon? {
         switch self {
-        case .superCoin: "AlternateIcon"
-        case .starCoin:  "PremiumIcon"
+        case .superCoin: .alternate
+        case .starCoin:  .premium
         case .smallCoin: nil
         }
     }
