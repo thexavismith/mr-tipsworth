@@ -12,7 +12,6 @@ struct MainCalculatorView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // Top bar
                 HStack {
                     Text("Mr. Tipsworth")
                         .font(.system(size: 15, weight: .semibold, design: .rounded))
@@ -23,17 +22,14 @@ struct MainCalculatorView: View {
                 .padding(.horizontal, 28)
                 .padding(.top, 16)
 
-                // Bill entry — hero element
                 BillEntryView(calculation: calculation)
                     .padding(.horizontal, 24)
                     .padding(.top, 28)
 
-                // Totals block
                 TotalsView(calculation: calculation)
                     .padding(.horizontal, 24)
-                    .padding(.top, 16)
+                    .padding(.top, 12)
 
-                // Rounding toggle
                 RoundingToggleView(
                     isRounding: $calculation.isRounding,
                     effectiveTip: calculation.effectiveTipPercent
@@ -43,7 +39,6 @@ struct MainCalculatorView: View {
 
                 Spacer()
 
-                // Dial anchored to bottom
                 TipDialView(tipPercent: $calculation.tipPercent)
                     .padding(.bottom, 24)
             }
@@ -64,7 +59,10 @@ struct MainCalculatorView: View {
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundStyle(themeStore.activeTheme.primaryText)
                 .frame(width: 40, height: 40)
-                .background(themeStore.activeTheme.surface, in: Circle())
+                .background(themeStore.activeTheme.cardBackground, in: Circle())
+                .overlay {
+                    Circle().strokeBorder(themeStore.activeTheme.cardStroke, lineWidth: 1.5)
+                }
         }
         .accessibilityLabel("Settings")
     }

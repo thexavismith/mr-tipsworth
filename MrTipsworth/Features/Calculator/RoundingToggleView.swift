@@ -29,6 +29,10 @@ struct RoundingToggleView: View {
         .padding(.horizontal, 20)
         .padding(.vertical, 16)
         .background(themeStore.activeTheme.cardBackground, in: .rect(cornerRadius: 20))
+        .overlay {
+            RoundedRectangle(cornerRadius: 20)
+                .strokeBorder(themeStore.activeTheme.cardStroke, lineWidth: 1.5)
+        }
         .animation(.easeInOut(duration: 0.2), value: isRounding)
     }
 }

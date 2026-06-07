@@ -6,18 +6,8 @@ struct TotalsView: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            TotalChip(
-                label: "Tip",
-                value: calculation.tipAmount,
-                isEmphasized: false,
-                theme: themeStore.activeTheme
-            )
-            TotalChip(
-                label: "Total",
-                value: calculation.displayTotal,
-                isEmphasized: true,
-                theme: themeStore.activeTheme
-            )
+            TotalChip(label: "Tip", value: calculation.tipAmount, isEmphasized: false, theme: themeStore.activeTheme)
+            TotalChip(label: "Total", value: calculation.displayTotal, isEmphasized: true, theme: themeStore.activeTheme)
         }
     }
 }
@@ -37,7 +27,7 @@ private struct TotalChip: View {
                 .kerning(0.8)
 
             Text(value, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                .font(.system(size: isEmphasized ? 36 : 28, weight: .black, design: .rounded))
+                .font(.system(size: isEmphasized ? 36 : 28, weight: isEmphasized ? .heavy : .bold, design: .rounded))
                 .foregroundStyle(isEmphasized ? theme.accent : theme.primaryText)
                 .contentTransition(.numericText())
                 .animation(.snappy(duration: 0.2), value: value)
@@ -47,15 +37,10 @@ private struct TotalChip: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 20)
         .padding(.vertical, 18)
-        .background(
-            isEmphasized ? theme.accent.opacity(0.12) : theme.cardBackground,
-            in: .rect(cornerRadius: 20)
-        )
+        .background(isEmphasized ? theme.accent.opacity(0.08) : theme.cardBackground, in: .rect(cornerRadius: 20))
         .overlay {
-            if isEmphasized {
-                RoundedRectangle(cornerRadius: 20)
-                    .strokeBorder(theme.accent.opacity(0.35), lineWidth: 1.5)
-            }
+            RoundedRectangle(cornerRadius: 20)
+                .strokeBorder(isEmphasized ? theme.accent.opacity(0.5) : theme.cardStroke, lineWidth: 1.5)
         }
     }
 }

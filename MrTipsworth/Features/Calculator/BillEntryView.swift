@@ -16,12 +16,12 @@ struct BillEntryView: View {
 
             HStack(alignment: .firstTextBaseline, spacing: 4) {
                 Text(currencySymbol)
-                    .font(.system(size: 36, weight: .bold, design: .rounded))
+                    .font(.system(size: 36, weight: .heavy, design: .rounded))
                     .foregroundStyle(themeStore.activeTheme.secondaryText)
 
                 TextField("0.00", text: $rawText)
                     .keyboardType(.decimalPad)
-                    .font(.system(size: 52, weight: .black, design: .rounded))
+                    .font(.system(size: 52, weight: .heavy, design: .rounded))
                     .foregroundStyle(themeStore.activeTheme.primaryText)
                     .onChange(of: rawText) { _, new in
                         rawText = sanitized(new)
@@ -41,9 +41,13 @@ struct BillEntryView: View {
                 }
             }
         }
-        .padding(.horizontal, 24)
+        .padding(.horizontal, 20)
         .padding(.vertical, 20)
         .background(themeStore.activeTheme.cardBackground, in: .rect(cornerRadius: 24))
+        .overlay {
+            RoundedRectangle(cornerRadius: 24)
+                .strokeBorder(themeStore.activeTheme.cardStroke, lineWidth: 1.5)
+        }
     }
 
     private var currencySymbol: String {
