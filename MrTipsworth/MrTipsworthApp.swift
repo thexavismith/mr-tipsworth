@@ -10,6 +10,10 @@ struct MrTipsworthApp: App {
             MainCalculatorView()
                 .environment(store)
                 .environment(themeStore)
+                .task { await store.updatePurchasedProducts() }
+                .onChange(of: store.hasAnyPurchase) { _, _ in
+                    themeStore.syncPurchases(from: store)
+                }
         }
     }
 }

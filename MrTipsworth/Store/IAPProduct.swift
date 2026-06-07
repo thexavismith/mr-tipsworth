@@ -15,27 +15,19 @@ enum IAPProduct: String, CaseIterable, Identifiable {
         }
     }
 
-    var rewardDescription: String {
+    var iconName: String {
         switch self {
-        case .smallCoin: "Unlocks the Warm Mushroom color theme"
-        case .superCoin: "Unlocks an alternate app icon"
-        case .starCoin:  "Unlocks the premium theme and icon bundle"
+        case .smallCoin: "cup.and.saucer.fill"
+        case .superCoin: "takeoutbag.and.cup.and.straw.fill"
+        case .starCoin:  "birthday.cake.fill"
         }
     }
 
-    var unlocksTheme: AppTheme? {
+    var fallbackPrice: String {
         switch self {
-        case .smallCoin: .warmMushroom
-        case .starCoin:  .warmMushroom
-        case .superCoin: nil
-        }
-    }
-
-    var unlocksIcon: AppIcon? {
-        switch self {
-        case .superCoin: .alternate
-        case .starCoin:  .premium
-        case .smallCoin: nil
+        case .smallCoin: "$2.99"
+        case .superCoin: "$4.99"
+        case .starCoin:  "$9.99"
         }
     }
 }

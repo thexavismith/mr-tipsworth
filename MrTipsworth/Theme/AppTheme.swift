@@ -15,7 +15,7 @@ enum AppTheme: String, CaseIterable, Identifiable {
 
     var background: Color {
         switch self {
-        case .classic:      .warmCream
+        case .classic:      .lavenderLight
         case .warmMushroom: Color(hex: 0xFFF8EE)
         }
     }
@@ -53,7 +53,7 @@ enum AppTheme: String, CaseIterable, Identifiable {
 
     var cardBackground: Color {
         switch self {
-        case .classic:      .lavenderCard
+        case .classic:      .white
         case .warmMushroom: Color(hex: 0xFFF1DC)
         }
     }

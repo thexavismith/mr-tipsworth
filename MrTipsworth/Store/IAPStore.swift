@@ -7,6 +7,8 @@ final class IAPStore {
     var isLoading: Bool = false
     var products: [Product] = []
 
+    var hasAnyPurchase: Bool { !purchasedProductIDs.isEmpty }
+
     func loadProducts() async {
         isLoading = true
         defer { isLoading = false }
