@@ -5,42 +5,57 @@ struct TotalsView: View {
     @Environment(ThemeStore.self) private var themeStore
 
     var body: some View {
-        VStack(spacing: 12) {
-            TotalRow(
+        HStack(spacing: 12) {
+            TotalChip(
                 label: "Tip",
                 value: calculation.tipAmount,
+                isEmphasized: false,
                 theme: themeStore.activeTheme
             )
-            Divider()
-                .background(themeStore.activeTheme.secondaryText.opacity(0.3))
-            TotalRow(
+            TotalChip(
                 label: "Total",
                 value: calculation.displayTotal,
                 isEmphasized: true,
                 theme: themeStore.activeTheme
             )
         }
-        .padding(20)
-        .background(themeStore.activeTheme.surface, in: .rect(cornerRadius: 16))
     }
 }
 
-private struct TotalRow: View {
+private struct TotalChip: View {
     let label: String
     let value: Double
-    var isEmphasized: Bool = false
+    let isEmphasized: Bool
     let theme: AppTheme
 
     var body: some View {
-        HStack {
+        VStack(alignment: .leading, spacing: 4) {
             Text(label)
-                .font(isEmphasized ? .headline : .body)
+                .font(.system(size: 13, weight: .semibold, design: .rounded))
                 .foregroundStyle(theme.secondaryText)
-            Spacer()
+                .textCase(.uppercase)
+                .kerning(0.8)
+
             Text(value, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                .font(isEmphasized ? .system(size: 28, weight: .bold, design: .rounded) : .body.bold())
-                .foregroundStyle(theme.primaryText)
+                .font(.system(size: isEmphasized ? 36 : 28, weight: .black, design: .rounded))
+                .foregroundStyle(isEmphasized ? theme.accent : theme.primaryText)
                 .contentTransition(.numericText())
+                .animation(.snappy(duration: 0.2), value: value)
+                .minimumScaleFactor(0.6)
+                .lineLimit(1)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 18)
+        .background(
+            isEmphasized ? theme.accent.opacity(0.12) : theme.cardBackground,
+            in: .rect(cornerRadius: 20)
+        )
+        .overlay {
+            if isEmphasized {
+                RoundedRectangle(cornerRadius: 20)
+                    .strokeBorder(theme.accent.opacity(0.35), lineWidth: 1.5)
+            }
         }
     }
 }
@@ -49,4 +64,5 @@ private struct TotalRow: View {
     TotalsView(calculation: TipCalculation())
         .environment(ThemeStore())
         .padding()
+        .background(Color.warmCream)
 }

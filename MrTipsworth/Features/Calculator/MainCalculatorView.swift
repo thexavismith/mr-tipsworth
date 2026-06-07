@@ -11,16 +11,42 @@ struct MainCalculatorView: View {
             themeStore.activeTheme.background
                 .ignoresSafeArea()
 
-            VStack(spacing: 32) {
-                BillEntryView(calculation: calculation)
-                TipDialView(tipPercent: $calculation.tipPercent)
-                TotalsView(calculation: calculation)
-                RoundingToggleView(isRounding: $calculation.isRounding, effectiveTip: calculation.effectiveTipPercent)
-            }
-            .padding(.horizontal, 24)
-            .padding(.top, 60)
+            VStack(spacing: 0) {
+                // Top bar
+                HStack {
+                    Text("Mr. Tipsworth")
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                        .foregroundStyle(themeStore.activeTheme.secondaryText)
+                    Spacer()
+                    settingsButton
+                }
+                .padding(.horizontal, 28)
+                .padding(.top, 16)
 
-            settingsButton
+                // Bill entry — hero element
+                BillEntryView(calculation: calculation)
+                    .padding(.horizontal, 24)
+                    .padding(.top, 28)
+
+                // Totals block
+                TotalsView(calculation: calculation)
+                    .padding(.horizontal, 24)
+                    .padding(.top, 16)
+
+                // Rounding toggle
+                RoundingToggleView(
+                    isRounding: $calculation.isRounding,
+                    effectiveTip: calculation.effectiveTipPercent
+                )
+                .padding(.horizontal, 24)
+                .padding(.top, 12)
+
+                Spacer()
+
+                // Dial anchored to bottom
+                TipDialView(tipPercent: $calculation.tipPercent)
+                    .padding(.bottom, 24)
+            }
         }
         .task {
             await store.updatePurchasedProducts()
@@ -31,13 +57,16 @@ struct MainCalculatorView: View {
     }
 
     private var settingsButton: some View {
-        Button("Settings", systemImage: "gearshape.fill") {
+        Button {
             isShowingSettings = true
+        } label: {
+            Image(systemName: "gearshape.fill")
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundStyle(themeStore.activeTheme.primaryText)
+                .frame(width: 40, height: 40)
+                .background(themeStore.activeTheme.surface, in: Circle())
         }
-        .labelStyle(.iconOnly)
-        .font(.title2)
-        .foregroundStyle(themeStore.activeTheme.secondaryText)
-        .padding(20)
+        .accessibilityLabel("Settings")
     }
 }
 

@@ -4,8 +4,11 @@ struct IconPickerSectionView: View {
     @Environment(ThemeStore.self) private var themeStore
 
     var body: some View {
-        Section("App Icon") {
-            ForEach(AppIcon.allCases) { icon in
+        VStack(spacing: 0) {
+            ForEach(Array(AppIcon.allCases.enumerated()), id: \.element) { index, icon in
+                if index > 0 {
+                    Divider().padding(.leading, 72)
+                }
                 IconPickerRow(icon: icon, themeStore: themeStore)
             }
         }
@@ -24,40 +27,45 @@ private struct IconPickerRow: View {
             guard isUnlocked else { return }
             Task { await themeStore.setIcon(icon) }
         } label: {
-            HStack {
+            HStack(spacing: 14) {
                 iconPreview
                 Text(icon.displayName)
-                    .foregroundStyle(isUnlocked ? .primary : .secondary)
+                    .font(.system(size: 16, weight: .semibold, design: .rounded))
+                    .foregroundStyle(
+                        isUnlocked ? themeStore.activeTheme.primaryText : themeStore.activeTheme.secondaryText
+                    )
                 Spacer()
                 if !isUnlocked {
                     Image(systemName: "lock.fill")
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(themeStore.activeTheme.secondaryText)
                         .accessibilityLabel("Locked")
                 } else if isActive {
-                    Image(systemName: "checkmark")
-                        .foregroundStyle(Color.accentColor)
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(Color.plum)
                         .accessibilityLabel("Selected")
                 }
             }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 16)
         }
         .disabled(!isUnlocked)
     }
 
     private var iconPreview: some View {
         RoundedRectangle(cornerRadius: 10)
-            .fill(isUnlocked ? Color.sparkleGold.opacity(0.2) : Color.secondary.opacity(0.1))
+            .fill(isUnlocked ? Color.plum.opacity(0.15) : Color.secondary.opacity(0.1))
             .frame(width: 44, height: 44)
             .overlay {
                 Image(systemName: isUnlocked ? "app.fill" : "app")
-                    .foregroundStyle(isUnlocked ? Color.sparkleGold : .secondary)
+                    .foregroundStyle(isUnlocked ? Color.plum : .secondary)
             }
             .accessibilityHidden(true)
     }
 }
 
 #Preview {
-    List {
-        IconPickerSectionView()
-    }
-    .environment(ThemeStore())
+    IconPickerSectionView()
+        .environment(ThemeStore())
+        .padding()
+        .background(Color.warmCream)
 }
