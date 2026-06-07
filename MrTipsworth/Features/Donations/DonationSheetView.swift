@@ -9,30 +9,37 @@ struct DonationSheetView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 16) {
-                    ForEach(IAPProduct.allCases) { product in
-                        DonationTierView(
-                            product: product,
-                            storeProduct: store.products.first(where: { $0.id == product.rawValue }),
-                            isPurchased: store.isPurchased(product),
-                            onPurchase: { await purchase(product) }
-                        )
+            ZStack {
+                themeStore.activeTheme.background.ignoresSafeArea()
+
+                ScrollView {
+                    VStack(spacing: 12) {
+                        ForEach(IAPProduct.allCases) { product in
+                            DonationTierView(
+                                product: product,
+                                storeProduct: store.products.first(where: { $0.id == product.rawValue }),
+                                isPurchased: store.isPurchased(product),
+                                theme: themeStore.activeTheme,
+                                onPurchase: { await purchase(product) }
+                            )
+                        }
                     }
+                    .padding(20)
                 }
-                .padding(24)
             }
             .navigationTitle("Support the Dev")
             .navigationBarTitleDisplayMode(.large)
+            .toolbarBackground(themeStore.activeTheme.background, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done", action: dismiss.callAsFunction)
+                    Button("Done") { dismiss() }
+                        .font(.system(size: 16, weight: .semibold, design: .rounded))
+                        .foregroundStyle(themeStore.activeTheme.accent)
                 }
             }
         }
-        .task {
-            await store.loadProducts()
-        }
+        .task { await store.loadProducts() }
         .sheet(item: $purchasedProduct, content: RewardUnlockView.init)
     }
 
@@ -42,18 +49,12 @@ struct DonationSheetView: View {
                 applyRewards(for: product)
                 purchasedProduct = product
             }
-        } catch {
-            // Surface via alert in full implementation
-        }
+        } catch {}
     }
 
     private func applyRewards(for product: IAPProduct) {
-        if let theme = product.unlocksTheme {
-            themeStore.unlock(theme)
-        }
-        if let icon = product.unlocksIcon {
-            themeStore.unlock(icon: icon)
-        }
+        if let theme = product.unlocksTheme { themeStore.unlock(theme) }
+        if let icon = product.unlocksIcon { themeStore.unlock(icon: icon) }
     }
 }
 
@@ -61,31 +62,43 @@ private struct DonationTierView: View {
     let product: IAPProduct
     let storeProduct: Product?
     let isPurchased: Bool
+    let theme: AppTheme
     let onPurchase: () async -> Void
 
     var body: some View {
-        HStack {
+        HStack(spacing: 16) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(product.displayName)
-                    .font(.headline)
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .foregroundStyle(theme.primaryText)
                 Text(product.rewardDescription)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                    .foregroundStyle(theme.secondaryText)
+                    .fixedSize(horizontal: false, vertical: true)
             }
+
             Spacer()
+
             if isPurchased {
-                Image(systemName: "checkmark.seal.fill")
-                    .foregroundStyle(.green)
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.system(size: 24))
+                    .foregroundStyle(theme.accent)
                     .accessibilityLabel("Purchased")
             } else {
                 Button(storeProduct?.displayPrice ?? "—") {
                     Task { await onPurchase() }
                 }
-                .buttonStyle(.borderedProminent)
+                .font(.system(size: 15, weight: .bold, design: .rounded))
+                .foregroundStyle(.white)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 8)
+                .background(theme.accent, in: Capsule())
             }
         }
         .padding(16)
-        .background(.regularMaterial, in: .rect(cornerRadius: 12))
+        .background(theme.cardBackground, in: .rect(cornerRadius: 16))
+        .overlay(RoundedRectangle(cornerRadius: 16)
+            .strokeBorder(theme.cardStroke, lineWidth: 1.5))
     }
 }
 
