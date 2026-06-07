@@ -25,6 +25,11 @@ final class TipCalculation {
         isRounding ? roundedTotal : rawTotal
     }
 
+    var displayTipAmount: Double {
+        guard isRounding, let bill = billAmount else { return tipAmount }
+        return roundedTotal - bill
+    }
+
     var effectiveTipPercent: Double? {
         guard isRounding, let bill = billAmount, bill > 0 else { return nil }
         return ((roundedTotal - bill) / bill) * 100
