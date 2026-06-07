@@ -6,22 +6,30 @@ struct RoundingToggleView: View {
     @Environment(ThemeStore.self) private var themeStore
 
     var body: some View {
-        VStack(spacing: 8) {
-            Toggle("Round up total", isOn: $isRounding)
-                .font(.body.bold())
-                .foregroundStyle(themeStore.activeTheme.primaryText)
-                .tint(themeStore.activeTheme.accent)
+        HStack {
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Round up total")
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .foregroundStyle(themeStore.activeTheme.primaryText)
 
-            if let effectiveTip {
-                Text("Effective tip: \(effectiveTip, format: .number.precision(.fractionLength(1)))%")
-                    .font(.caption)
-                    .foregroundStyle(themeStore.activeTheme.secondaryText)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
+                if let effectiveTip {
+                    Text("Effective tip: \(effectiveTip, format: .number.precision(.fractionLength(1)))%")
+                        .font(.system(size: 13, weight: .medium, design: .rounded))
+                        .foregroundStyle(themeStore.activeTheme.secondaryText)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                }
             }
+
+            Spacer()
+
+            Toggle("", isOn: $isRounding)
+                .labelsHidden()
+                .tint(themeStore.activeTheme.accent)
         }
-        .padding(20)
-        .background(themeStore.activeTheme.surface, in: .rect(cornerRadius: 16))
-        .animation(.easeInOut, value: isRounding)
+        .padding(.horizontal, 24)
+        .padding(.vertical, 16)
+        .background(themeStore.activeTheme.cardBackground, in: .rect(cornerRadius: 20))
+        .animation(.easeInOut(duration: 0.2), value: isRounding)
     }
 }
 
@@ -29,4 +37,5 @@ struct RoundingToggleView: View {
     RoundingToggleView(isRounding: .constant(true), effectiveTip: 18.4)
         .environment(ThemeStore())
         .padding()
+        .background(Color.warmCream)
 }

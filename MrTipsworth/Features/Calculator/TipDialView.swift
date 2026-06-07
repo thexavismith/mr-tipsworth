@@ -8,14 +8,12 @@ struct TipDialView: View {
     static let snapPoints: [Int] = [15, 18, 20, 25]
     private let snapThreshold = 2
 
-    // Accumulated rotation in degrees, updated live during drag
     @State private var rotation: Double = 0
     @State private var dragStartAngle: Double?
-    // Sub-percent degree accumulator — fires a tick when it crosses ±degreesPerPercent
     @State private var accumulatedDegrees: Double = 0
 
     private let dialSize: CGFloat = 280
-    private let centerButtonSize: CGFloat = 110
+    private let centerButtonSize: CGFloat = 130
     private let degreesPerPercent: Double =
         (360.0 / Double(TipDialView.range.upperBound - TipDialView.range.lowerBound)) / 2
 
@@ -43,52 +41,45 @@ struct TipDialView: View {
             @unknown default: break
             }
         }
-
     }
 
-    // Outer rotating ring — solid filled circle with tick marks and border on top
+    // Bold flat ring — solid color, 60 fine ticks, no gradients
     private var dialRing: some View {
         ZStack {
             Circle()
                 .fill(themeStore.activeTheme.dialFace)
 
-            // Grippy tick marks near the edge of the ring
-            ForEach(0..<36, id: \.self) { tick in
+            ForEach(0..<60, id: \.self) { tick in
                 Capsule()
-                    .fill(themeStore.activeTheme.accent.opacity(0.25))
-                    .frame(width: 2, height: 10)
-                    .offset(y: -(dialSize / 2 - 12))
-                    .rotationEffect(.degrees(Double(tick) * 10))
+                    .fill(Color.black.opacity(0.12))
+                    .frame(width: 1.5, height: 8)
+                    .offset(y: -(dialSize / 2 - 10))
+                    .rotationEffect(.degrees(Double(tick) * 6))
             }
-
-            Circle()
-                .strokeBorder(themeStore.activeTheme.accent, lineWidth: 3)
         }
         .frame(width: dialSize, height: dialSize)
         .rotationEffect(.degrees(rotation))
     }
 
+    // Snap pips — bold, clearly visible landmarks
     private var snapPips: some View {
         ForEach(Self.snapPoints, id: \.self) { point in
             SnapPipView(
                 percent: point,
                 range: Self.range,
                 dialRotation: rotation,
-                pipColor: themeStore.activeTheme.dialPip
+                color: themeStore.activeTheme.dialPip
             )
         }
     }
 
-    // Fixed center button — distinct surface color, raised shadow
+    // White center button — high contrast against the amber ring
     private var centerButton: some View {
         ZStack {
             Circle()
-                .fill(themeStore.activeTheme.surface)
-                .shadow(color: .black.opacity(0.22), radius: 8, x: 0, y: 4)
-                .overlay {
-                    Circle()
-                        .strokeBorder(themeStore.activeTheme.accent.opacity(0.35), lineWidth: 1.5)
-                }
+                .fill(Color.white)
+                .shadow(color: .black.opacity(0.15), radius: 16, x: 0, y: 4)
+
             centerLabel
         }
         .frame(width: centerButtonSize, height: centerButtonSize)
@@ -96,7 +87,7 @@ struct TipDialView: View {
 
     private var centerLabel: some View {
         Text("\(tipPercent)%")
-            .font(.system(size: 32, weight: .bold, design: .rounded))
+            .font(.system(size: 40, weight: .black, design: .rounded))
             .foregroundStyle(themeStore.activeTheme.primaryText)
             .contentTransition(.numericText())
             .animation(.snappy(duration: 0.2), value: tipPercent)
@@ -116,7 +107,6 @@ struct TipDialView: View {
                 }
 
                 var delta = angle - startAngle
-                // Wrap large jumps (crossing the ±π boundary)
                 if delta > .pi { delta -= 2 * .pi }
                 if delta < -.pi { delta += 2 * .pi }
 
@@ -125,7 +115,6 @@ struct TipDialView: View {
                 rotation += degreesDelta
                 dragStartAngle = angle
 
-                // Clockwise drag = positive degreesDelta = increase tip
                 while accumulatedDegrees >= degreesPerPercent {
                     accumulatedDegrees -= degreesPerPercent
                     updateTip(by: 1)
@@ -143,8 +132,7 @@ struct TipDialView: View {
     }
 
     private func updateTip(by delta: Int) {
-        let newPercent = (tipPercent + delta).clamped(to: Self.range)
-        tipPercent = newPercent
+        tipPercent = (tipPercent + delta).clamped(to: Self.range)
     }
 
     private func snapToNearestPreset() {
@@ -162,13 +150,13 @@ private struct SnapPipView: View {
     let percent: Int
     let range: ClosedRange<Int>
     let dialRotation: Double
-    let pipColor: Color
+    let color: Color
 
     var body: some View {
-        Capsule()
-            .fill(pipColor)
-            .frame(width: 5, height: 14)
-            .offset(y: -120)
+        RoundedRectangle(cornerRadius: 2)
+            .fill(color)
+            .frame(width: 5, height: 18)
+            .offset(y: -(140 - 18) / 2 - 9)
             .rotationEffect(.degrees(angleForPercent))
     }
 
@@ -188,4 +176,5 @@ private extension Comparable {
     TipDialView(tipPercent: .constant(20))
         .environment(ThemeStore())
         .padding()
+        .background(Color.warmCream)
 }

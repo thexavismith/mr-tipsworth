@@ -7,39 +7,55 @@ struct BillEntryView: View {
     @State private var rawText: String = ""
 
     var body: some View {
-        HStack {
-            TextField("Enter bill amount", text: $rawText)
-                .keyboardType(.decimalPad)
-                .font(.system(size: 40, weight: .semibold, design: .rounded))
-                .multilineTextAlignment(.center)
-                .foregroundStyle(themeStore.activeTheme.primaryText)
-                .onChange(of: rawText) { _, new in
-                    rawText = sanitized(new)
-                    calculation.billAmount = Double(rawText)
-                }
-
-            if !rawText.isEmpty {
-                Button("Clear", systemImage: "xmark.circle.fill") {
-                    rawText = ""
-                    calculation.billAmount = nil
-                }
-                .labelStyle(.iconOnly)
+        VStack(alignment: .leading, spacing: 4) {
+            Text("Bill amount")
+                .font(.system(size: 13, weight: .semibold, design: .rounded))
                 .foregroundStyle(themeStore.activeTheme.secondaryText)
-                .accessibilityLabel("Clear bill amount")
+                .textCase(.uppercase)
+                .kerning(0.8)
+
+            HStack(alignment: .firstTextBaseline, spacing: 4) {
+                Text(currencySymbol)
+                    .font(.system(size: 36, weight: .bold, design: .rounded))
+                    .foregroundStyle(themeStore.activeTheme.secondaryText)
+
+                TextField("0.00", text: $rawText)
+                    .keyboardType(.decimalPad)
+                    .font(.system(size: 52, weight: .black, design: .rounded))
+                    .foregroundStyle(themeStore.activeTheme.primaryText)
+                    .onChange(of: rawText) { _, new in
+                        rawText = sanitized(new)
+                        calculation.billAmount = Double(rawText)
+                    }
+
+                if !rawText.isEmpty {
+                    Button {
+                        rawText = ""
+                        calculation.billAmount = nil
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 20))
+                            .foregroundStyle(themeStore.activeTheme.secondaryText)
+                    }
+                    .accessibilityLabel("Clear bill amount")
+                }
             }
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
-        .background(themeStore.activeTheme.surface, in: .rect(cornerRadius: 16))
+        .padding(.horizontal, 24)
+        .padding(.vertical, 20)
+        .background(themeStore.activeTheme.cardBackground, in: .rect(cornerRadius: 24))
+    }
+
+    private var currencySymbol: String {
+        Locale.current.currencySymbol ?? "$"
     }
 
     private func sanitized(_ input: String) -> String {
-        let decimalSeparator = Locale.current.decimalSeparator ?? "."
-        var result = input.filter { $0.isNumber || String($0) == decimalSeparator }
-        // Allow only one decimal separator
-        let parts = result.components(separatedBy: decimalSeparator)
+        let sep = Locale.current.decimalSeparator ?? "."
+        var result = input.filter { $0.isNumber || String($0) == sep }
+        let parts = result.components(separatedBy: sep)
         if parts.count > 2 {
-            result = parts[0] + decimalSeparator + parts[1...].joined()
+            result = parts[0] + sep + parts[1...].joined()
         }
         return result
     }
@@ -49,4 +65,5 @@ struct BillEntryView: View {
     BillEntryView(calculation: TipCalculation())
         .environment(ThemeStore())
         .padding()
+        .background(Color.warmCream)
 }
