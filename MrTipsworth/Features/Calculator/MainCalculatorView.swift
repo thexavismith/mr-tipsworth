@@ -11,14 +11,23 @@ struct MainCalculatorView: View {
             themeStore.activeTheme.background
                 .ignoresSafeArea()
 
-            VStack(spacing: 32) {
-                BillEntryView(calculation: calculation)
+            VStack(spacing: 0) {
+                VStack(spacing: 24) {
+                    BillEntryView(calculation: calculation)
+                    TotalsView(calculation: calculation)
+                    RoundingToggleView(
+                        isRounding: $calculation.isRounding,
+                        effectiveTip: calculation.effectiveTipPercent
+                    )
+                }
+                .padding(.horizontal, 24)
+                .padding(.top, 60)
+
+                Spacer()
+
                 TipDialView(tipPercent: $calculation.tipPercent)
-                TotalsView(calculation: calculation)
-                RoundingToggleView(isRounding: $calculation.isRounding, effectiveTip: calculation.effectiveTipPercent)
+                    .padding(.bottom, 48)
             }
-            .padding(.horizontal, 24)
-            .padding(.top, 60)
 
             settingsButton
         }
