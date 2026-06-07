@@ -1,0 +1,60 @@
+{
+  "identifier" : "MrTipsworth",
+  "nonConsumableProducts" : [
+    {
+      "displayPrice" : "2.99",
+      "familyShareable" : false,
+      "internalID" : "smallcoin",
+      "localizations" : [
+        {
+          "description" : "Unlocks the Warm Mushroom color theme",
+          "displayName" : "Small Coin",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.tipsworth.smallcoin",
+      "referenceName" : "Small Coin",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "supercoin",
+      "localizations" : [
+        {
+          "description" : "Unlocks an alternate app icon",
+          "displayName" : "Super Coin",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.tipsworth.supercoin",
+      "referenceName" : "Super Coin",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "9.99",
+      "familyShareable" : false,
+      "internalID" : "starcoin",
+      "localizations" : [
+        {
+          "description" : "Unlocks the premium theme and icon bundle",
+          "displayName" : "Star Coin",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.tipsworth.starcoin",
+      "referenceName" : "Star Coin",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "askToBuyEnabled" : false,
+    "storefront" : "USA",
+    "locale" : "en_US"
+  },
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}
