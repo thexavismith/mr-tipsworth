@@ -26,7 +26,7 @@ struct RewardUnlockView: View {
                     Text("Thank you!")
                         .font(.largeTitle.bold())
                         .foregroundStyle(themeStore.activeTheme.primaryText)
-                    Text(product.rewardDescription)
+                    Text("Your support means the world. Thank you for being a part of Mr. Tipsworth's journey!")
                         .font(.body)
                         .foregroundStyle(themeStore.activeTheme.secondaryText)
                         .multilineTextAlignment(.center)
