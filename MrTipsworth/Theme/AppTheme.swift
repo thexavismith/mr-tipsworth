@@ -8,72 +8,72 @@ enum AppTheme: String, CaseIterable, Identifiable {
 
     var displayName: String {
         switch self {
-        case .classic:     "Classic"
+        case .classic:      "Classic"
         case .warmMushroom: "Warm Mushroom"
         }
     }
 
-    // Page / screen background
     var background: Color {
         switch self {
-        case .classic:     .softCream
+        case .classic:      .warmCream
         case .warmMushroom: Color(hex: 0xFFF8EE)
         }
     }
 
-    // Card / surface background
     var surface: Color {
         switch self {
-        case .classic:     .white.opacity(0.85)
+        case .classic:      .white
         case .warmMushroom: Color(hex: 0xFFF1DC)
         }
     }
 
-    // Primary interactive accent (buttons, dial ring, toggle tint)
     var accent: Color {
         switch self {
-        case .classic:     .sparkleGold
+        case .classic:      .plum
         case .warmMushroom: .cozyPeach
         }
     }
 
-    // Dial face fill
     var dialFace: Color {
         switch self {
-        case .classic:     .warmYellow
+        case .classic:      .plum
         case .warmMushroom: .cozyPeach
         }
     }
 
-    // Snap pip markers on the dial
     var dialPip: Color {
         switch self {
-        case .classic:     .richBrown
-        case .warmMushroom: .sparkleGold
-        }
-    }
-
-    // Primary body text
-    var primaryText: Color {
-        switch self {
-        case .classic:     .richBrown
+        case .classic:      .lightPlum
         case .warmMushroom: .richBrown
         }
     }
 
-    // Secondary / caption text
-    var secondaryText: Color {
+    var primaryText: Color {
         switch self {
-        case .classic:     .richBrown.opacity(0.55)
-        case .warmMushroom: .richBrown.opacity(0.55)
+        case .classic:      .inkBrown
+        case .warmMushroom: .richBrown
         }
     }
 
-    // Decorative highlight (e.g. reward screen star)
+    var secondaryText: Color {
+        switch self {
+        case .classic:      .inkBrown.opacity(0.45)
+        case .warmMushroom: .richBrown.opacity(0.5)
+        }
+    }
+
     var highlight: Color {
         switch self {
-        case .classic:     .tealBlue
+        case .classic:      .deepTeal
         case .warmMushroom: .warmYellow
+        }
+    }
+
+    // Card chip backgrounds (bill entry, totals, rounding)
+    var cardBackground: Color {
+        switch self {
+        case .classic:      .lightPlum
+        case .warmMushroom: Color(hex: 0xFFF1DC)
         }
     }
 }
